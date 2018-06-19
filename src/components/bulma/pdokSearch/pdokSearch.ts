@@ -1,9 +1,10 @@
+import * as L from 'leaflet';
 import * as wellknown from 'wellknown';
 
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
-import { MapService } from '../../../services/map';
-import { PdokLocatieserverService } from '../../../services/pdokLocatieserver';
+import { MapService } from 'krite/lib/services/map';
+import { PdokLocatieserverService } from 'krite/lib/services/pdokLocatieserver';
 
 @Component
 export default class PdokSearch extends Vue {
@@ -55,7 +56,7 @@ export default class PdokSearch extends Vue {
     };
 
     created() {
-        this.locatieserver = this.$services.getService<PdokLocatieserverService>('PdokLocatieserverService');
+        this.locatieserver = this.$krite.getService<PdokLocatieserverService>('PdokLocatieserverService');
     }
 
     get highlighted() {
@@ -113,7 +114,7 @@ export default class PdokSearch extends Vue {
     }
 
     searchClick(context: any) {
-        const map = this.$services.getService<MapService>('MapService');
+        const map = this.$krite.getService<MapService>('MapService');
 
         this.locatieserver.inspect(context.id).then((response) => {
             const geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);

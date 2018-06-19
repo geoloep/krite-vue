@@ -1,29 +1,31 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "target": "es5",
     "lib": [
       "dom",
+      "es5",
+      "es2015.promise",
       "es2015.core",
-      "es2015.promise"
+      "scripthost"
     ],
-    "module": "commonjs",
+    "noImplicitAny": true,
     "moduleResolution": "node",
+    "strictNullChecks": true,
+    "allowJs": false,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
     "isolatedModules": false,
     "experimentalDecorators": true,
-    "noImplicitAny": true,
     "noImplicitThis": true,
-    "outDir": "lib",
-    "strictNullChecks": true,
     "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "./**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "./src/components"
+    "node_modules"
   ],
   "compileOnSave": false
 }
