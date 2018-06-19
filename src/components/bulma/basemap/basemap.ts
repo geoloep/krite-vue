@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-import pool from '../../../servicePool';
-// import { BasemapService } from '../../services/basemap';
-import { MapService } from '../../../services/map';
-
-import { IDataSource, ILayer } from '../../../types';
+import { IDataSource, ILayer } from 'krite/lib/types';
+import { MapService } from 'krite/lib/services/map';
 
 @Component
 export default class BasemapComponent extends Vue {
@@ -43,7 +40,7 @@ export default class BasemapComponent extends Vue {
         if (this.$listeners.choice) {
             this.$emit('choice', context);
         } else {
-            pool.getService<MapService>('MapService').setBaseMap(context);
+            this.$krite.getService<MapService>('MapService').setBaseMap(context);
         }
     }
 }
