@@ -9,6 +9,10 @@ declare module "vue/types/vue" {
     interface Vue {
         $krite: Krite;
         _krite: Krite;
+        $window: {
+            width: number;
+            height: number;
+        };
     }
 }
 
