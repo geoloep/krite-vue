@@ -1,13 +1,15 @@
 import Vue from 'vue';
 
-import mapPlugin from './mapPlugin';
-import servicePlugin from './servicePlugin';
-import sourcePlugin from './sourcePlugin';
+export function install(vue: Vue) {
+    Vue.mixin({
+        beforeCreate() {
+            if (this.$options.krite) {
+                this._krite = this.$options.krite;
+            }
+        }
+    })
 
-export default {
-    install: (vue: any, options?: any) => {
-        Vue.use(mapPlugin);
-        Vue.use(servicePlugin);
-        Vue.use(sourcePlugin);
-    },
-};
+    Object.defineProperty(Vue.prototype, '$krite', {
+        get() { return this._krite }
+    })
+}
