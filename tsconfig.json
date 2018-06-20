@@ -22,7 +22,8 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "./**/*.ts"
+    "./src/**/*.ts",
+    "./types/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "vue-bulma": {
+      "signature": "9b7850836160d3b7b2d4f4c4da8254f6",
+      "file": true
+    }
+  }
+}

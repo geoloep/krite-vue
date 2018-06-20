@@ -6,7 +6,17 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { MapService } from 'krite/lib/services/map';
 import { PdokLocatieserverService } from 'krite/lib/services/pdokLocatieserver';
 
-@Component
+import VBDropdown from 'vue-bulma/lib/components/dropdown/dropdown.vue';
+
+const components: any = {};
+
+if (!Vue.component('vb-dropdown')) {
+    components.vbDropdown = VBDropdown;
+}
+
+@Component({
+    components,
+})
 export default class PdokSearch extends Vue {
     @Prop({ default: true })
     zoomTo: boolean;
@@ -40,20 +50,6 @@ export default class PdokSearch extends Vue {
         'gemeente',
         'perceel',
     ];
-
-    depthToIcon = {
-        adres: 'mdi-home',
-        woonplaats: 'mdi-map-marker',
-        weg: 'mdi-road',
-        gemeente: 'mdi-map-marker',
-        perceel: 'mdi-map',
-    };
-
-    cursor = {
-        depth: 'adres',
-        num: 0,
-        valid: false,
-    };
 
     created() {
         this.locatieserver = this.$krite.getService<PdokLocatieserverService>('PdokLocatieserverService');
