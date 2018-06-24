@@ -10,7 +10,8 @@
     },
     "typings": "./types/vue.d.ts",
     "scripts": {
-        "collect": "node collect-vue.js"
+        "collect": "node collect-vue.js",
+        "lib": "tsc -d && npm run collect"
     },
     "dependencies": {
         "vue-bulma": "file:.yalc/vue-bulma",
