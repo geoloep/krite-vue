@@ -8,6 +8,10 @@ export default class LegendItem extends Vue {
     legend = true;
     visible = true;
 
+    get title() {
+        return this.$krite.map.layerByName[this.layer].title;
+    }
+
     get html() {
         return this.$krite.map.layerByName[this.layer].legend;
     }

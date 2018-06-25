@@ -2,7 +2,7 @@
     <div>
         <div class="level">
             <div class="level-left">
-                <div class="level-item">{{layer}}</div>
+                <div class="level-item">{{title}}</div>
             </div>
             <div class="level-right">
                 <a class="level-item is-marginless" @click="top"><vb-icon icon="mdi mdi-chevron-double-up"></vb-icon></a>
