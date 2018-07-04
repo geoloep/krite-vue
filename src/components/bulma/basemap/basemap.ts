@@ -7,13 +7,13 @@ import { MapService } from 'krite/lib/services/map';
 @Component
 export default class BasemapComponent extends Vue {
     @Prop()
-    source: IDataSource;
+    source: string;
 
     @Prop()
     layers: string[] | undefined;
 
-    @Prop({ default: {} })
-    assign: any;
+    // @Prop({ default: () => {} })
+    // assign: any;
 
     basemaps: ILayer[] = [];
 
@@ -23,15 +23,24 @@ export default class BasemapComponent extends Vue {
 
     async loadBasemaps() {
         let layers;
+        let layer;
+
+        const source = this.$krite.getSource(this.source)
 
         if (this.layers) {
             layers = this.layers;
         } else {
-            layers = await this.source.getLayerNames();
+            layers = await source.getLayerNames();
         }
 
-        for (const layer of layers) {
-            this.basemaps.push(Object.assign(await this.source.getLayer(layer), this.assign));
+        for (const layerName of layers) {
+            layer = await source.getLayer(layerName);
+            
+            if (layer.added) {
+                layer.added(this.$krite);
+            }
+
+            this.basemaps.push(layer);
         }
 
     }
