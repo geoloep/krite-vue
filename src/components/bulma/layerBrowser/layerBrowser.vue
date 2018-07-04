@@ -6,7 +6,7 @@
                     <label for="data-source" class="label">Databron:</label>
                     <div class="control">
                         <div class="select is-fullwidth">
-                            <select id="data-source" v-model="source">
+                            <select id="data-source" v-model="localSource">
                                 <option :value="null"></option>
                                 <option v-for="s in sources" :key="s" :value="s">{{s}}</option>
                             </select>
@@ -19,7 +19,7 @@
                         <vb-icon class="is-right has-text-black" icon="mdi mdi-magnify"></vb-icon>
                     </div>
                 </div>
-                <table class="table is-bordered is-hoverable is-fullwidth" v-if="source">
+                <table class="table is-bordered is-hoverable is-fullwidth" v-if="localSource">
                     <tbody>
                         <tr v-for="name in filteredLayers" :key="name" @click="selectLayer(name)">
                             <td>{{name}}</td>
@@ -28,25 +28,29 @@
                 </table>
             </div>
             <div class="column">
-                <template v-if="layer">
-                    <h3 class="title is-6">{{layer}}</h3>
+                <template v-if="localLayer">
+                    <h3 class="title is-6">{{localLayer}}</h3>
                     <section class="section" v-html="preview"></section>
                     <p>{{abstract}}</p>
                 </template>
             </div>
         </div>
-        <hr>
-        <div class="level">
-            <div class="level-left"></div>
-            <div class="level-right">
-                <div class="level-item">
-                    <button class="button is-white" @click="add"><vb-icon icon="mdi mdi-link-variant"></vb-icon>&nbsp; Permalink</button>
-                </div>
-                <div class="level-item">
-                    <button class="button is-primary" @click="add"><vb-icon icon="mdi mdi-plus mdi-24px"></vb-icon>&nbsp; Laag toevoegen</button>
+        <template v-if="!isButtonless">
+            <hr>
+            <div class="level">
+                <div class="level-left"></div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <button class="button is-white" @click="add">
+                            <vb-icon icon="mdi mdi-link-variant"></vb-icon>&nbsp; Permalink</button>
+                    </div>
+                    <div class="level-item">
+                        <button class="button is-primary" @click="add">
+                            <vb-icon icon="mdi mdi-plus mdi-24px"></vb-icon>&nbsp; Laag toevoegen</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 

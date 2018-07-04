@@ -1,21 +1,33 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 
 @Component
 export default class LayerBrowser extends Vue {
+    @Prop()
+    source: string;
+
+    @Prop()
+    layer: string;
+
+    @Prop(Boolean)
+    isButtonless: boolean;
+
     sources: any = [];
 
-    source: string | null = null;
+    localSource: string | null = null;
     layers: string[] = [];
 
     filter = '';
 
-    layer: string | null = null;
+    localLayer: string | null = null;
 
     preview: string | null = null;
     abstract: string | null = null;
 
     mounted() {
         this.sources = this.$krite.source.list;
+
+        this.$emit('update:source', null);
+        this.$emit('update:layer', null);
     }
 
     get filteredLayers() {
@@ -26,15 +38,21 @@ export default class LayerBrowser extends Vue {
         });
     }
 
-    @Watch('source')
+    @Watch('localSource')
     async sourceChanged(val: string | null) {
         if (val) {
+            this.$emit('update:source', val);
+            this.$emit('update:layer', null);
+
             this.layers = await this.$krite.getSource(val).getLayerNames();
+        } else {
+            this.$emit('update:source', null);
+            this.$emit('update:layer', null);
         }
     }
 
     async selectLayer(name: string) {
-        this.layer = name;
+        this.localLayer = name;
 
         if (this.source) {
             const layer = await this.$krite.getSource(this.source).getLayer(name);
@@ -46,6 +64,8 @@ export default class LayerBrowser extends Vue {
 
             this.preview = layer.preview;
             this.abstract = layer.abstract;
+
+            this.$emit('update:layer', name);
         }
     }
 
