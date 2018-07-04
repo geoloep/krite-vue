@@ -1,4 +1,5 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { InspectorService } from 'krite/lib/services/inspector';
 
 @Component
 export default class LegendItem extends Vue {
@@ -14,6 +15,10 @@ export default class LegendItem extends Vue {
 
     get html() {
         return this.$krite.map.layerByName[this.layer].legend;
+    }
+
+    get inspector() {
+        return this.$krite.hasService('InspectorService');
     }
 
     top() {
@@ -37,6 +42,13 @@ export default class LegendItem extends Vue {
             this.$krite.map.showLayer(layer);
             this.visible = true;
         }
+    }
+
+    inspect() {
+        const layer = this.$krite.map.layerByName[this.layer];
+        const inspector = this.$krite.getService<InspectorService>('InspectorService');
+
+        inspector.setLayer(layer);
     }
 
     remove() {
