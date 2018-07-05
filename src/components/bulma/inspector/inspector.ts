@@ -96,7 +96,9 @@ export default class Inspector extends Vue {
             this.features.splice(0);
         }
 
-        if (!this.validTools.includes(this.tool)) {
+        if (this.validTools.length === 0) {
+            this.tool = this.noTool;
+        } else if (!this.validTools.includes(this.tool)) {
             this.tool = this.tools[0];
         }
     }
