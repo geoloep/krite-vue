@@ -6,17 +6,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { MapService } from 'krite/lib/services/map';
 import { PdokLocatieserverService } from 'krite/lib/services/pdokLocatieserver';
 
-import VBDropdown from 'vue-bulma/lib/components/dropdown/dropdown.vue';
-
-const components: any = {};
-
-if (!Vue.component('vb-dropdown')) {
-    components.vbDropdown = VBDropdown;
-}
-
-@Component({
-    components,
-})
+@Component
 export default class PdokSearch extends Vue {
     @Prop({ default: true })
     zoomTo: boolean;
