@@ -53,7 +53,7 @@ import MapComponent from 'krite-vue/lib/components/map/map.vue';
 import LegendComponent from 'krite-vue/lib/components/bulma/legend/legend.vue';
 
 const component = new Vue({
-    copmponents: {
+    components: {
         kriteMap: MapComponent,
         kriteLegend: LegendComponent,
     },
@@ -75,6 +75,6 @@ const component = new Vue({
 ```
 
 ## Development
-Krite-ve is developed using typescript. View models are class style and contained in a seperate .ts file.
+Krite-vue is developed using typescript. View models are class style and contained in a seperate .ts file.
 
 Compile the typescript files with either `tsc -d`, `tsc -d -w` or `npm run dev`. To transfer the .vue template files from /src to /lib you can use the included script by running `npm run collect`.
