@@ -12,8 +12,8 @@ export default class BasemapComponent extends Vue {
     @Prop()
     layers: string[] | undefined;
 
-    // @Prop({ default: () => {} })
-    // assign: any;
+    @Prop({ default: () => {} })
+    assign: any;
 
     basemaps: ILayer[] = [];
 
@@ -35,6 +35,8 @@ export default class BasemapComponent extends Vue {
 
         for (const layerName of layers) {
             layer = await source.getLayer(layerName);
+
+            Object.assign(layer, this.assign);
             
             if (layer.added) {
                 layer.added(this.$krite);
