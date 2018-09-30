@@ -5,11 +5,11 @@
                 <h3 class="level-item title is-6">{{title}}</h3>
             </div>
             <div class="level-right">
-                <a class="level-item is-marginless" @click="top"><vb-icon icon="mdi mdi-chevron-double-up"></vb-icon></a>
-                <a class="level-item is-marginless" :class="legend ? '' : 'has-text-grey'" @click="toggleLegend"><vb-icon icon="mdi mdi-format-list-bulleted-type"></vb-icon></a>
-                <a class="level-item is-marginless" :class="visible ? '' : 'has-text-grey'" @click="toggleVisibility"><vb-icon icon="mdi mdi-eye"></vb-icon></a>
-                <a class="level-item is-marginless" v-if="inspector" @click="inspect"><vb-icon icon="mdi mdi-help-circle"></vb-icon></a>
-                <a class="level-item is-marginless" @click="remove"><vb-icon icon="mdi mdi-delete"></vb-icon></a>
+                <a class="level-item is-marginless" @click="top"><bl-icon icon="mdi mdi-chevron-double-up"></bl-icon></a>
+                <a class="level-item is-marginless" :class="legend ? '' : 'has-text-grey'" @click="toggleLegend"><bl-icon icon="mdi mdi-format-list-bulleted-type"></bl-icon></a>
+                <a class="level-item is-marginless" :class="visible ? '' : 'has-text-grey'" @click="toggleVisibility"><bl-icon icon="mdi mdi-eye"></bl-icon></a>
+                <a class="level-item is-marginless" v-if="inspector" @click="inspect"><bl-icon icon="mdi mdi-help-circle"></bl-icon></a>
+                <a class="level-item is-marginless" @click="remove"><bl-icon icon="mdi mdi-delete"></bl-icon></a>
             </div>
         </div>
         <div v-show="legend" v-html="html"></div>

@@ -11,21 +11,21 @@
                 </div>
             </div>
         </div>
-        <vb-dropdown class="wide" v-model="toolDropdown" :items="tools">
+        <bl-dropdown class="wide" v-model="toolDropdown" :items="tools">
             <div class="buttons is-fullwidth has-addons">
                 <button class="button is-tool is-white" v-if="validTools.length > 0" @click="runTool">
-                    <vb-icon :icon="tool.icon"></vb-icon>&nbsp;&nbsp; {{tool.lable}}</button>
+                    <bl-icon :icon="tool.icon"></bl-icon>&nbsp;&nbsp; {{tool.lable}}</button>
                 <button class="button is-tool is-white" v-else>
-                    <vb-icon :icon="noTool.icon"></vb-icon>&nbsp;&nbsp; {{noTool.lable}}</button>
+                    <bl-icon :icon="noTool.icon"></bl-icon>&nbsp;&nbsp; {{noTool.lable}}</button>
                 <button class="button angle is-white" @click="toolDropdown = !toolDropdown" @blur="toolDropdown = false" :disabled="validTools.length === 0">
-                    <vb-icon icon="mdi mdi-chevron-down"></vb-icon>
+                    <bl-icon icon="mdi mdi-chevron-down"></bl-icon>
                 </button>
             </div>
             <a slot="items" slot-scope="slot" class="dropdown-item" v-if="validTools.includes(slot.item.name)" @mousedown="setTool(slot.item)">
-                <vb-icon :icon="slot.item.icon"></vb-icon> {{slot.item.lable}}
+                <bl-icon :icon="slot.item.icon"></bl-icon> {{slot.item.lable}}
             </a>
 
-        </vb-dropdown>
+        </bl-dropdown>
         <template v-if="features.length > 1">
             <label for="objects" class="label">Objecten:</label>
             <div class="field has-addons">
@@ -38,12 +38,12 @@
                 </div>
                 <div class="control">
                     <button type="submit" class="button is-white" @click="shiftIndex(-1)">
-                        <vb-icon icon="mdi mdi-chevron-left"></vb-icon>
+                        <bl-icon icon="mdi mdi-chevron-left"></bl-icon>
                     </button>
                 </div>
                 <div class="control">
                     <button type="submit" class="button is-white" @click="shiftIndex(1)">
-                        <vb-icon icon="mdi mdi-chevron-right"></vb-icon>
+                        <bl-icon icon="mdi mdi-chevron-right"></bl-icon>
                     </button>
                 </div>
             </div>

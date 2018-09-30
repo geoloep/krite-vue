@@ -1,13 +1,13 @@
 <template>
     <div class="PdokSearchComponent">
-        <vb-dropdown class="wide" :items="results" is-clickable is-reactive is-blurable>
+        <bl-dropdown class="wide" :items="results" is-clickable is-reactive is-blurable>
             <div class="control" :class="loading ? 'is-loading is-medium' : ''">
                 <input class="input" type="search" placeholder="Adres zoeken" v-model="searchString" @keydown.prevent.down="selectDown" @keydown.prevent.up="selectUp" @keydown.prevent.enter="selectEnter">
             </div>
             <a slot="items" slot-scope="{item}" class="dropdown-item" :class="item === highlighted ? 'is-active' : ''" @mousedown="searchClick(item)">
                 <slot :item="item">{{item.weergavenaam}}</slot>
             </a>
-        </vb-dropdown>
+        </bl-dropdown>
     </div>
 </template>
 
