@@ -7,8 +7,6 @@ Unlike [krite](https://github.com/geoloep/krite) itself this project is opiniona
 * [Bulmalite](https://github.com/ynte/bulmalite) for bulma vue components
 * [Material design icons](https://materialdesignicons.com/)
 
-*The bootstrap components are currently outdated!*
-
 ## Usage
 
 ### Vue plugin
