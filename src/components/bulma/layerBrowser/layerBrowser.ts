@@ -1,6 +1,16 @@
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 
-@Component
+import KvMdiMagnify from 'vue-material-design-icons/Magnify.vue';
+import KvMdiLinkVariant from 'vue-material-design-icons/LinkVariant.vue';
+import KvMdiPlus from 'vue-material-design-icons/Plus.vue';
+
+@Component({
+    components: {
+        KvMdiMagnify,
+        KvMdiLinkVariant,
+        KvMdiPlus,
+    },
+})
 export default class LayerBrowser extends Vue {
     @Prop()
     source: string;

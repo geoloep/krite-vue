@@ -16,7 +16,7 @@
                 <div class="field">
                     <div class="control has-icons-right">
                         <input type="text" class="input" placeholder="Filteren" v-model="filter">
-                        <bl-icon class="is-right has-text-black" icon="mdi mdi-magnify"></bl-icon>
+                        <div class="icon is-right"><kv-mdi-magnify></kv-mdi-magnify></div>
                     </div>
                 </div>
                 <table class="table is-bordered is-hoverable is-fullwidth" v-if="localSource">
@@ -42,11 +42,11 @@
                 <div class="level-right">
                     <div class="level-item">
                         <button class="button is-white" @click="add">
-                            <bl-icon icon="mdi mdi-link-variant"></bl-icon>&nbsp; Permalink</button>
+                            <div class="icon"><kv-mdi-link-variant></kv-mdi-link-variant></div> &nbsp; Permalink</button>
                     </div>
                     <div class="level-item">
                         <button class="button is-primary" @click="add">
-                            <bl-icon icon="mdi mdi-plus mdi-24px"></bl-icon>&nbsp; Laag toevoegen</button>
+                            <div class="icon"><kv-mdi-link-variant></kv-mdi-link-variant></div>&nbsp; Laag toevoegen</button>
                     </div>
                 </div>
             </div>
