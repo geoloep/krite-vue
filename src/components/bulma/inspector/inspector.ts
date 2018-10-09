@@ -4,7 +4,27 @@ import { ILayer, TAttributes, IAttributeTypeFunc } from 'krite/lib/types';
 import { InspectorService } from 'krite/lib/services/inspector';
 import { NumeralService } from 'krite/lib/services/numeral';
 
-@Component
+import KvCursor from 'vue-material-design-icons/CursorDefault.vue';
+import KvSquare from 'vue-material-design-icons/SquareOutline.vue';
+import KvStar from 'vue-material-design-icons/StarOutline.vue';
+import KvLine from 'vue-material-design-icons/ChartLineVariant.vue';
+import KvNone from 'vue-material-design-icons/Cancel.vue';
+import KvLeft from 'vue-material-design-icons/ChevronLeft.vue';
+import KvRight from 'vue-material-design-icons/ChevronRight.vue';
+import KvDown from 'vue-material-design-icons/ChevronDown.vue';
+
+@Component({
+    components: {
+        KvCursor,
+        KvSquare,
+        KvStar,
+        KvLine,
+        KvNone,
+        KvLeft,
+        KvRight,
+        KvDown,
+    },
+})
 export default class Inspector extends Vue {
     layers: any = [];
     layer: string | null = null;
@@ -15,29 +35,29 @@ export default class Inspector extends Vue {
         {
             lable: 'Objecten aanklikken',
             name: 'cursor',
-            icon: 'mdi mdi-cursor-default',
+            icon: 'kv-cursor',
         },
         {
             lable: 'Selecteren met een rechthoek',
             name: 'box',
-            icon: 'mdi mdi-square-outline',
+            icon: 'kv-square',
         },
         {
             lable: 'Selecteren met een veelhoek',
             name: 'polygon',
-            icon: 'mdi mdi-star-outline',
+            icon: 'kv-star',
         },
         {
             lable: 'Selecteren met een lijn',
             name: 'line',
-            icon: 'mdi mdi-chart-line-variant',
+            icon: 'kv-line',
         },
-    ]
+    ];
 
     noTool = {
         lable: 'Deze laag is niet bevraagbaar',
         name: 'none',
-        icon: 'mdi mdi-cancel',
+        icon: 'kv-none',
     };
 
     tool: any = null;
