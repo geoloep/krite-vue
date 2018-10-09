@@ -27,7 +27,7 @@
 </template>
 
 <style>
-.item {
+.legend-item {
   margin-bottom: 1rem;
 }
 
