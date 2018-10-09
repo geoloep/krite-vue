@@ -1,15 +1,25 @@
 <template>
-    <div class="LegendItem">
+    <div class="legend-item">
         <div class="level">
             <div class="level-left">
-                <h3 class="level-item title is-6">{{title}}</h3>
+                <h3 class="level-item subtitle has-text-black is-4">{{title}}</h3>
             </div>
             <div class="level-right">
-                <a class="level-item is-marginless" @click="top"><bl-icon icon="mdi mdi-chevron-double-up"></bl-icon></a>
-                <a class="level-item is-marginless" :class="legend ? '' : 'has-text-grey'" @click="toggleLegend"><bl-icon icon="mdi mdi-format-list-bulleted-type"></bl-icon></a>
-                <a class="level-item is-marginless" :class="visible ? '' : 'has-text-grey'" @click="toggleVisibility"><bl-icon icon="mdi mdi-eye"></bl-icon></a>
-                <a class="level-item is-marginless" v-if="inspector" @click="inspect"><bl-icon icon="mdi mdi-help-circle"></bl-icon></a>
-                <a class="level-item is-marginless" @click="remove"><bl-icon icon="mdi mdi-delete"></bl-icon></a>
+                <a class="level-item is-marginless" @click="top">
+                    <div class="icon is-medium"><kv-mdi-chevron-up></kv-mdi-chevron-up></div>
+                </a>
+                <a class="level-item is-marginless" :class="legend ? '' : 'has-text-grey'" @click="toggleLegend">
+                    <div class="icon is-medium"><kv-mdi-list></kv-mdi-list></div>
+                </a>
+                <a class="level-item is-marginless" :class="visible ? '' : 'has-text-grey'" @click="toggleVisibility">
+                    <div class="icon is-medium"><kv-mdi-eye></kv-mdi-eye></div>
+                </a>
+                <a class="level-item is-marginless" v-if="inspector" @click="inspect">
+                    <div class="icon is-medium"><kv-mdi-inspect></kv-mdi-inspect></div>
+                </a>
+                <a class="level-item is-marginless" @click="remove">
+                    <div class="icon is-medium"><kv-mdi-delete></kv-mdi-delete></div>
+                </a>
             </div>
         </div>
         <div v-show="legend" v-html="html"></div>
@@ -17,8 +27,13 @@
 </template>
 
 <style>
-.LegendItem {
-    margin-bottom: 1rem;
+.item {
+  margin-bottom: 1rem;
+}
+
+.legend-item .material-design-icon__svg{
+    width: 1.3rem !important;
+    height: 1.3rem !important;
 }
 </style>
 

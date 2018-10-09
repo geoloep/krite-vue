@@ -1,7 +1,21 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { InspectorService } from 'krite/lib/services/inspector';
 
-@Component
+import KvMdiChevronUp from 'vue-material-design-icons/ChevronDoubleUp.vue';
+import KvMdiList from 'vue-material-design-icons/FormatListBulletedType.vue';
+import KvMdiEye from 'vue-material-design-icons/Eye.vue';
+import KvMdiInspect from 'vue-material-design-icons/HelpCircle.vue';
+import KvMdiDelete from 'vue-material-design-icons/Delete.vue';
+
+@Component({
+    components: {
+        KvMdiChevronUp,
+        KvMdiList,
+        KvMdiEye,
+        KvMdiInspect,
+        KvMdiDelete,
+    },
+})
 export default class LegendItem extends Vue {
     @Prop()
     layer: string;
@@ -53,7 +67,7 @@ export default class LegendItem extends Vue {
 
     remove() {
         const layer = this.$krite.map.layerByName[this.layer];
-        
+
         this.$krite.map.removeLayer(layer);
     }
 }
