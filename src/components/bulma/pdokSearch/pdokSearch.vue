@@ -1,6 +1,6 @@
 <template>
     <div class="PdokSearchComponent">
-        <bl-dropdown class="wide" :items="results" is-clickable is-reactive is-blurable>
+        <bl-dropdown class="wide" v-model="visible" :items="results" is-clickable is-reactive is-blurable>
             <div class="control" :class="loading ? 'is-loading is-medium' : ''">
                 <input class="input" type="search" placeholder="Adres zoeken" v-model="searchString" @keydown.prevent.down="selectDown" @keydown.prevent.up="selectUp" @keydown.prevent.enter="selectEnter">
             </div>

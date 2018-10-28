@@ -109,6 +109,7 @@ export default class PdokSearch extends Vue {
                 map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]), this.diepteNaarZoom[context.type]);
             }
 
+            this.visible = false;
             this.$emit('result-click', response.response.docs[0], geojson, this.diepteNaarZoom[context.type]);
         });
 
@@ -134,7 +135,11 @@ export default class PdokSearch extends Vue {
     }
 
     selectEnter() {
-        this.searchClick(this.highlighted);
+        if (this.visible) {
+            this.searchClick(this.highlighted);
+        } else {
+            this.visible = true;
+        }
     }
 
     selectReset() {
