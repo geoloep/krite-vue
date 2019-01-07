@@ -25,7 +25,7 @@ export default class BasemapComponent extends Vue {
         let layers;
         let layer;
 
-        const source = this.$krite.getSource(this.source)
+        const source = this.$krite.getSource(this.source);
 
         if (this.layers) {
             layers = this.layers;
@@ -37,7 +37,7 @@ export default class BasemapComponent extends Vue {
             layer = await source.getLayer(layerName);
 
             Object.assign(layer, this.assign);
-            
+
             if (layer.added) {
                 layer.added(this.$krite);
             }
