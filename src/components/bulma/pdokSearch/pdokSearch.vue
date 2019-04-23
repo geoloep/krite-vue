@@ -1,15 +1,35 @@
 <template>
     <div class="PdokSearchComponent">
-        <bl-dropdown class="wide" v-model="visible" is-clickable is-reactive is-blurable>
-            <div class="control" :class="loading ? 'is-loading is-medium' : ''">
-                <input class="input" type="search" placeholder="Adres zoeken" v-model="searchString" @keydown.prevent.down="selectDown" @keydown.prevent.up="selectUp" @keydown.prevent.enter="selectEnter">
+        <bl-dropdown class="wide" v-model="visible" is-clickable is-reactive will-blur>
+            <div class="control has-icons-right" :class="{loading: 'is-loading'}">
+                <input
+                    class="input"
+                    type="search"
+                    placeholder="Locatie zoeken"
+                    :value="searchString"
+                    @input="searchStringChanged"
+                    @keydown.prevent.down="selectDown"
+                    @keydown.prevent.up="selectUp"
+                    @keydown.prevent.enter="selectEnter"
+                >
+            <span class="icon is-right">
+                <local-magnify class="is-size-4"></local-magnify>
+            </span>
             </div>
-            <a slot="content" v-for="(item, key) in results" :key="key" class="dropdown-item" :class="item === highlighted ? 'is-active' : ''" @mousedown="searchClick(item)">
+            <a
+                slot="content"
+                v-for="(item, key) in results"
+                :key="key"
+                class="dropdown-item"
+                :class="item === highlighted ? 'is-active' : ''"
+                @mousedown="searchClick(item)"
+            >
                 <slot :item="item">{{item.weergavenaam}}</slot>
             </a>
         </bl-dropdown>
     </div>
 </template>
+
 
 <style>
 .PdokSearchComponent .wide,
