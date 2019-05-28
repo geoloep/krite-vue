@@ -6,47 +6,54 @@
                 <div class="select is-fullwidth">
                     <select id="data-source" v-model="layer">
                         <option :value="null"></option>
-                        <option v-for="l in layers" :key="l" :value="l">{{l}}</option>
+                        <option v-for="layer in layers" :key="layer" :value="layer">{{layer}}</option>
                     </select>
                 </div>
             </div>
         </div>
-        <bl-dropdown class="wide" v-model="toolDropdown" :items="tools">
-            <div class="buttons is-fullwidth has-addons">
-                <button class="button is-tool is-white" v-if="validTools.length > 0" @click="runTool">
-                    <component :is="tool.icon"></component>&nbsp;&nbsp; {{tool.lable}}
-                </button>
-                <button class="button is-tool is-white" v-else>
-                    <kv-none></kv-none>&nbsp;&nbsp; {{noTool.lable}}
-                </button>
-                <button class="button angle is-white" @click="toolDropdown = !toolDropdown" @blur="toolDropdown = false" :disabled="validTools.length === 0">
-                    <kv-down></kv-down>
-                </button>
+        <article class="message" v-if="!layer">
+            <div class="message-body is-flex">
+                <kv-none></kv-none>&nbsp; Geen laag geselecteerd
             </div>
-            <a slot="items" slot-scope="{item}" class="dropdown-item" v-if="validTools.includes(item.name)" @mousedown="setTool(item)">
-                <component :is="item.icon"></component>&nbsp; {{item.lable}}
-            </a>
-
-        </bl-dropdown>
+        </article>
+        <template v-else-if="validTools.length > 1">
+            <label for="data-source" class="label">Cursor:</label>
+            <bl-tabs class="is-fullwidth is-toggle" :items="tools" v-model="tool">
+                <template #default="scope">
+                    <a class="is-disabled">
+                        <component :is="scope.item.icon"/>
+                    </a>
+                </template>
+            </bl-tabs>
+        </template>
+        <article v-else-if="validTools.length === 0" class="message">
+            <div class="message-body is-flex">
+                <kv-none></kv-none>&nbsp; Deze laag is niet bevraagbaar
+            </div>
+        </article>
         <template v-if="features.length > 1">
             <label for="objects" class="label">Objecten:</label>
             <div class="field has-addons">
                 <div class="control is-expanded">
                     <div class="select is-fullwidth">
                         <select name="object" id="objects" v-model="index">
-                            <option v-for="(feature, index) in features" :key="feature.properties[namefield]" :value="index">{{feature.properties[namefield]}}</option>
+                            <option
+                                v-for="(feature, index) in features"
+                                :key="feature.properties[namefield]"
+                                :value="index"
+                            >{{feature.properties[namefield]}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="control">
-                    <button type="submit" class="button is-white" @click="shiftIndex(-1)">
+                    <button type="submit" class="button" @click="shiftIndex(-1)">
                         <div class="icon">
                             <kv-left></kv-left>
                         </div>
                     </button>
                 </div>
                 <div class="control">
-                    <button type="submit" class="button is-white" @click="shiftIndex(1)">
+                    <button type="submit" class="button" @click="shiftIndex(1)">
                         <div class="icon">
                             <kv-right></kv-right>
                         </div>
@@ -61,7 +68,10 @@
                         <th>Attribuut</th>
                         <th>Waarde</th>
                     </tr>
-                    <tr v-for="(row, key) in parseProperties(features[index].properties)" :key="key">
+                    <tr
+                        v-for="(row, key) in parseProperties(features[index].properties)"
+                        :key="key"
+                    >
                         <td>{{key}}</td>
                         <td v-html="row"></td>
                     </tr>
@@ -76,34 +86,34 @@
 .krite-inspector .dropdown-menu,
 .krite-inspector .dropdown-content,
 .krite-inspector .dropdown-trigger {
-  width: 100%;
+    width: 100%;
 }
 
 .krite-inspector .wide {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .krite-inspector .material-design-icon__svg,
 .krite-inspector .material-design-icon {
-  width: 1.3rem !important;
-  height: 1.3rem !important;
+    width: 1.3rem !important;
+    height: 1.3rem !important;
 }
 </style>
 
 <style scoped>
 .is-tool {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .table {
-  margin-top: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .table-wrapper {
-  width: 100;
-  overflow-x: auto;
+    width: 100;
+    overflow-x: auto;
 }
 </style>
 
 
-<script src="./inspector.js"></script>
+<script src="./inspector.ts" lang="ts"></script>

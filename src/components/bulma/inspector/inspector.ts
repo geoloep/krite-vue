@@ -1,7 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { ILayer, TAttributes, IAttributeTypeFunc } from 'krite/lib/types';
 
-import { InspectorService } from 'krite/lib/services/inspector';
+import { InspectorService, ToolType } from 'krite/lib/services/inspector';
 import { NumeralService } from 'krite/lib/services/numeral';
 
 import KvCursor from 'vue-material-design-icons/CursorDefault.vue';
@@ -12,6 +12,7 @@ import KvNone from 'vue-material-design-icons/Cancel.vue';
 import KvLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import KvRight from 'vue-material-design-icons/ChevronRight.vue';
 import KvDown from 'vue-material-design-icons/ChevronDown.vue';
+import { DrawService } from 'krite/lib/services/draw';
 
 @Component({
     components: {
@@ -26,33 +27,39 @@ import KvDown from 'vue-material-design-icons/ChevronDown.vue';
     },
 })
 export default class Inspector extends Vue {
-    layers: any = [];
+    layers: string[] = [];
     layer: string | null = null;
 
-    toolDropdown = false;
+    tools: Array<{
+        lable: string;
+        name: ToolType;
+        icon: string;
+    }> = [
+            {
+                lable: 'Objecten aanklikken',
+                name: 'cursor',
+                icon: 'kv-cursor',
+            },
+            {
+                lable: 'Selecteren met een rechthoek',
+                name: 'box',
+                icon: 'kv-square',
+            },
+            {
+                lable: 'Selecteren met een veelhoek',
+                name: 'polygon',
+                icon: 'kv-star',
+            },
+            {
+                lable: 'Selecteren met een lijn',
+                name: 'line',
+                icon: 'kv-line',
+            },
+        ];
 
-    tools = [
-        {
-            lable: 'Objecten aanklikken',
-            name: 'cursor',
-            icon: 'kv-cursor',
-        },
-        {
-            lable: 'Selecteren met een rechthoek',
-            name: 'box',
-            icon: 'kv-square',
-        },
-        {
-            lable: 'Selecteren met een veelhoek',
-            name: 'polygon',
-            icon: 'kv-star',
-        },
-        {
-            lable: 'Selecteren met een lijn',
-            name: 'line',
-            icon: 'kv-line',
-        },
-    ];
+    tool = 0;
+
+    queryable = false;
 
     noTool = {
         lable: 'Deze laag is niet bevraagbaar',
@@ -60,14 +67,42 @@ export default class Inspector extends Vue {
         icon: 'kv-none',
     };
 
-    tool: any = null;
     validTools: string[] = [];
 
     index = 0;
     namefield = '';
+
     features: GeoJSON.Feature<any>[] = [];
 
-    inspector: InspectorService;
+    inspector!: InspectorService;
+
+    @Watch('layer')
+    layerChanged(val: string) {
+        this.inspector.setLayer(val);
+        this.validTools = this.inspector.tools;
+
+        if (!this.inspector.layerResult || this.inspector.layerResult.layer.name !== val) {
+            this.features.splice(0);
+        }
+    }
+
+    @Watch('index')
+    indexChanged() {
+        if (this.features.length > 1 && this.features[this.index]) {
+            this.$krite.map.addFocus(this.features[this.index]);
+        }
+    }
+
+    @Watch('tool')
+    toolChanged(val: number) {
+        if (this.tools[val]) {
+            this.inspector.setTool(this.tools[val].name);
+
+            this.$krite.getService<DrawService>('DrawService').disable();
+
+            this.inspector.runTool();
+        }
+    }
 
     mounted() {
         this.updateLayers();
@@ -79,8 +114,6 @@ export default class Inspector extends Vue {
         this.$krite.map.startInspect();
 
         const inspector = this.inspector = this.$krite.getService<InspectorService>('InspectorService');
-
-        this.tool = this.tools[0];
 
         inspector.setTool('cursor');
 
@@ -107,29 +140,6 @@ export default class Inspector extends Vue {
         this.inspector.off('result-layer', this.onLayerResults);
     }
 
-    @Watch('layer')
-    layerChanged(val: string) {
-        this.inspector.setLayer(val);
-        this.validTools = this.inspector.tools;
-        
-        if (!this.inspector.layerResult || this.inspector.layerResult.layer.name !== val) {
-            this.features.splice(0);
-        }
-
-        if (this.validTools.length === 0) {
-            this.tool = this.noTool;
-        } else if (!this.validTools.includes(this.tool)) {
-            this.tool = this.tools[0];
-        }
-    }
-
-    @Watch('index')
-    indexChanged() {
-        if (this.features.length > 1 && this.features[this.index]) {
-            this.$krite.map.addFocus(this.features[this.index]);
-        }
-    }
-
     shiftIndex(shift: number) {
         if (this.features[this.index + shift]) {
             this.index += shift;
@@ -138,6 +148,10 @@ export default class Inspector extends Vue {
 
     updateLayers() {
         this.layers = this.$krite.map.layerNames;
+
+        if (this.layer && !this.layers.includes(this.layer)) {
+            this.layer = null;
+        }
     }
 
     getLayer() {
@@ -146,14 +160,18 @@ export default class Inspector extends Vue {
         }
     }
 
-    onResults(results: GeoJSON.FeatureCollection<any>) {
-        this.loadFeatureCollection(results);
+    onResults(results: GeoJSON.FeatureCollection<any> | null) {
+        if (results) {
+            this.loadFeatureCollection(results);
+        }
+
+        this.tool = 0;
     }
 
     onLayerResults(layer: ILayer, results: any) {
         if (layer.name === this.layer) {
             this.loadFeatureCollection({
-                type: "FeatureCollection",
+                type: 'FeatureCollection',
                 features: [{
                     type: 'Feature',
                     properties: results,
@@ -161,11 +179,6 @@ export default class Inspector extends Vue {
                 }],
             });
         }
-    }
-
-    setTool(tool: any) {
-        this.tool = tool;
-        this.inspector.setTool(tool.name);
     }
 
     runTool() {
@@ -177,9 +190,8 @@ export default class Inspector extends Vue {
         this.features = features.features;
 
         if (features.features.length > 0) {
-            this.namefield = Object.keys(features.features[0].properties)[0];
+            this.namefield = Object.keys(features.features[0].properties as any)[0];
 
-            // this.$krite.map.addFocus(features.features[0]);
             this.indexChanged();
         }
     }
@@ -190,7 +202,7 @@ export default class Inspector extends Vue {
 
             if (layer.getType && this.$krite.hasService('NumeralService')) {
                 const numeral = this.$krite.getService<NumeralService>('NumeralService')
-                const parsed = {};
+                const parsed: any = {};
 
                 let type: TAttributes | IAttributeTypeFunc
                 let f: any;
