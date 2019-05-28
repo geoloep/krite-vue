@@ -23,8 +23,8 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "./src/**/*.ts",
-    "./types/*.ts"
+    "src/**/*.ts",
+    "types/*.ts"
   ],
   "exclude": [
     "node_modules"
