@@ -13,7 +13,7 @@
                     @keydown.prevent.enter="selectEnter"
                 >
             <span class="icon is-right">
-                <local-magnify class="is-size-4"></local-magnify>
+                <kv-magnify class="is-size-4"></kv-magnify>
             </span>
             </div>
             <a

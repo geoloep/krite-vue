@@ -1,16 +1,17 @@
-import * as L from 'leaflet';
 import * as wellknown from 'wellknown';
+
+import { Point } from 'leaflet';
 
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 import { MapService } from 'krite/lib/services/map';
 import { PdokLocatieserverService } from 'krite/lib/services/pdokLocatieserver';
 
-import LocalMagnify from 'vue-material-design-icons/Magnify.vue';
+import KvMagnify from 'vue-material-design-icons/Magnify.vue';
 
 @Component({
     components: {
-        LocalMagnify,
+        KvMagnify,
     },
 })
 export default class PdokSearch extends Vue {
@@ -120,7 +121,7 @@ export default class PdokSearch extends Vue {
         const geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
 
         if (this.zoomTo) {
-            map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]), this.catToZoom[context.type]);
+            map.zoomToPoint(new Point(geojson.coordinates[0], geojson.coordinates[1]), this.catToZoom[context.type]);
         }
 
         this.visible = false;
