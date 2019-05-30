@@ -60,4 +60,4 @@
 </style>
 
 
-<script src="./controls.ts" lang="ts"></script>
+<script src="./mapControls.js"></script>

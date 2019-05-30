@@ -116,4 +116,4 @@
 </style>
 
 
-<script src="./inspector.ts" lang="ts"></script>
+<script src="./inspector.js"></script>
