@@ -10,13 +10,13 @@ export default {
                 if (!krite && this.$options.krite) {
                     krite = this.$options.krite;
                 }
-            }
-        })
+            },
+        });
 
         Object.defineProperty(Vue.prototype, '$krite', {
-            get() {             
+            get() {
                 return krite;
-            }
-        })
-    }
-}
+            },
+        });
+    },
+};
