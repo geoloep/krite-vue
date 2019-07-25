@@ -1,7 +1,7 @@
 <template>
     <div class="PdokSearchComponent">
         <bl-dropdown class="wide" v-model="visible" is-clickable is-reactive will-blur>
-            <div class="control has-icons-right" :class="{loading: 'is-loading'}">
+            <div class="control has-icons-right" :class="{'is-loading': loading}">
                 <input
                     class="input"
                     type="search"
