@@ -149,7 +149,9 @@ export default class PdokSearch extends Vue {
 
     selectEnter() {
         if (this.visible) {
-            this.searchClick(this.highlighted);
+            if (this.highlighted) {
+                this.searchClick(this.highlighted);
+            }
         } else {
             this.visible = true;
         }
