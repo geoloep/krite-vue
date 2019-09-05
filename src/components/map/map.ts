@@ -9,10 +9,10 @@ export default class MapComponent extends Vue {
     mounted() {
         this.map = this.$krite.getService<MapService>('MapService');
 
-        this.map.attatch(this.$refs['map-container'] as HTMLElement, true);
+        this.map.attach(this.$refs['map-container'] as HTMLElement, true);
     }
 
     beforeDestroy() {
-        this.map.detatch();
+        this.map.detach();
     }
 }
