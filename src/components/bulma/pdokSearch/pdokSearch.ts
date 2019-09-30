@@ -94,7 +94,6 @@ export default class PdokSearch extends Vue {
         try {
             this.searchSuccess(await this.locatieserver.search(searchString));
         } catch (e) {
-            // throw new Error('Search failure in Pdok Search Component');
             this.failed = true;
             this.$emit('search-error', e);
         } finally {
