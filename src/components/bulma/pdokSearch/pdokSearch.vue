@@ -16,7 +16,9 @@
                 <kv-magnify class="is-size-4"></kv-magnify>
             </span>
             </div>
+            <a slot="content" class="dropdown-item is-flex is-size-6" v-if="failed"><slot name="error"><kv-alert class="has-text-danger is-size-5" />&nbsp;Zoekopdracht mislukt</slot></a>
             <a
+                v-else
                 slot="content"
                 v-for="(item, key) in results"
                 :key="key"

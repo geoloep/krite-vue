@@ -8,10 +8,12 @@ import { MapService } from 'krite/lib/services/map';
 import { PdokLocatieserverService } from 'krite/lib/services/pdokLocatieserver';
 
 import KvMagnify from 'vue-material-design-icons/Magnify.vue';
+import KvAlert from 'vue-material-design-icons/AlertCircle.vue';
 
 @Component({
     components: {
         KvMagnify,
+        KvAlert,
     },
 })
 export default class PdokSearch extends Vue {
@@ -27,6 +29,7 @@ export default class PdokSearch extends Vue {
     searchTimeOut!: number;
     timeOutLength = 500;
     loading = false;
+    failed = false;
 
     results: any[] = [];
 
@@ -86,11 +89,14 @@ export default class PdokSearch extends Vue {
     async search(searchString: string) {
         this.visible = true;
         this.loading = true;
+        this.failed = false;
 
         try {
             this.searchSuccess(await this.locatieserver.search(searchString));
         } catch (e) {
-            throw new Error('Search failure in Pdok Search Component');
+            // throw new Error('Search failure in Pdok Search Component');
+            this.failed = true;
+            this.$emit('search-error', e);
         } finally {
             this.loading = false;
         }
