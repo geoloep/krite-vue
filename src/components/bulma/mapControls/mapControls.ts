@@ -38,9 +38,7 @@ export default class Controls extends Vue {
         });
 
         this.$krite.map.leaflet.on('locationfound', () => {
-            if (this.locating === 'error') {
-                this.locating = 'located';
-            }
+            this.locating = 'located';
         });
     }
 
@@ -65,10 +63,6 @@ export default class Controls extends Vue {
         } else {
             service.startLocating();
             this.locating = 'searching';
-
-            this.$krite.map.leaflet.once('locationfound', () => {
-                this.locating = 'located';
-            });
         }
     }
 
