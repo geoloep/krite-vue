@@ -1,21 +1,23 @@
 <template>
     <div id="controls-container">
         <div class="control-wrapper" v-if="zoom">
-            <button class="button top" @click="plus" :disabled="maxZoom">
+            <button class="button top has-tooltip-left" @click="plus" title="" data-tooltip="Inzoomen" :disabled="maxZoom">
                 <kv-plus/>
             </button>
-            <button id="minus" class="button bottom" @click="minus" :disabled="minZoom">
+            <button id="minus" class="button bottom has-tooltip-left" title="" data-tooltip="Uitzoomen" @click="minus" :disabled="minZoom">
                 <kv-minus/>
             </button>
         </div>
 
         <div class="control-wrapper" v-if="location">
-            <button class="button" @click="locate">
+            <button class="button has-tooltip-left" title="" data-tooltip="Mijn locatie weergeven" @click="locate">
                 <kv-gps
                     :class="{'has-text-warning': locating === 'searching', 'has-text-info': locating === 'located', 'has-text-danger': locating === 'error'}"
                 />
             </button>
         </div>
+
+        <slot />
     </div>
 </template>
 
