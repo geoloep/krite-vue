@@ -15,7 +15,7 @@
         "lib": "tsc -d && npm run collect"
     },
     "dependencies": {
-        "bulmalite": "~0.4.0",
+        "bulmalite": "~0.5.0",
         "vue-material-design-icons": "^2.1.1",
         "wellknown": "~0.5.0"
     },
